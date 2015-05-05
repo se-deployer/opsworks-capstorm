@@ -9,6 +9,7 @@ remote_file "#{Chef::Config[:file_cache_path]}/CopyStorm.zip" do
 end
 
 execute "unzip #{Chef::Config[:file_cache_path]}/CopyStorm.zip -d #{node[:capstorm][:install_dir]}"
+execute "chmod +x #{node[:capstorm][:install_dir]}/CopyStorm/CopyStorm.sh"
 
 package "mysql-connector-java"
 
