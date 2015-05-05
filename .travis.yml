@@ -1,0 +1,14 @@
+env:
+  global:
+  - EC2_SSH_KEY_PATH: ec2.pem
+  - secure: TWfyQ2PftdsFPtsKf0pb4RFLPSLIGzn7WlB2FLUw1LBqPgStZ6R7E3PT7X/i+9erqv8iipAeh/pVChMBHVcFMu0WjiJ0Joj+zxaYJzdfHWyBLy26zRDgL0oQa8YlLNWLtMhce7eRAS1aVLZIhdiQPL+K8kNipjlRxZAD1EzreuE=
+  - secure: VYLE+LPl8kb5LnIK8FdvAxEyhFCpTcd826SeVezZR759AN5fkN+XfIDQg9P0p6wYLHx3dY2IXVGMRCur3idHC4rADSVzJ2XHhctAWZuNwHm0lPYkVTbhpuQAwfOh0DOurHyVkzppyZaafPlKwjV3BXnnM/7qHbsK7BBDmX9rSL8=
+  - secure: GpTabCK/LGoqb+wNK3iDt5H/Dx4NHRZh+CmA/xbqIBhidK9P7bX2I+XtlLTpKSMmIHuQP/K/bYR7EQPXH0C/5ZQnwkcF9JKDfOK7RIqoRORMZ4bK9SzyrHi6HTYJkNjzB6ww/Oo6CE7nRC2/0e/2LH+cfM1ACgPiy0m9Kso6Z98=
+before_install:
+- openssl aes-256-cbc -K $encrypted_0c275cf9ada7_key -iv $encrypted_0c275cf9ada7_iv
+  -in id_rsa_kitchen_ec2.enc -out ec2.pem -d
+- chmod 600 ec2.pem
+script: bundle exec kitchen test -d always
+language: ruby
+bundler_args: --without development --deployment --jobs=3 --retry=3
+cache: bundler
