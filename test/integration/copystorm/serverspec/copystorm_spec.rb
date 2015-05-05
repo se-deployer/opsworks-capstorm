@@ -1,4 +1,4 @@
-require 'test_helper'
+require 'spec_helper'
 
 describe file('/opt/capstorm/CopyStorm') do
   it { should be_directory }
