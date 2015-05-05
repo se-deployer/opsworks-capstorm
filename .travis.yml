@@ -1,3 +1,6 @@
+branches:
+  only:
+    - master
 env:
   global:
   - EC2_SSH_KEY_PATH: ec2.pem
