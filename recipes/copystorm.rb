@@ -14,6 +14,9 @@ end
 execute "unzip #{Chef::Config[:file_cache_path]}/CopyStorm.zip -d #{node[:capstorm][:install_dir]}"
 execute "chmod +x #{node[:capstorm][:install_dir]}/CopyStorm/CopyStorm.sh"
 
+link "#{node[:capstorm][:install_dir]}/CopyStorm/lib/mysql-connector-java.jar" do
+  to "/usr/share/java/mysql-connector-java.jar"
+end
 
 cookbook_file node[:capstorm][:copystorm][:session_file][:name] do
   cookbook node[:capstorm][:copystorm][:session_file][:cookbook]
