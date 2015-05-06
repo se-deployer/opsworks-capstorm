@@ -42,3 +42,12 @@ EOF
   }
 end
 
+
+describe file('/usr/local/bin/copystorm') do
+  it { should be_file }
+  it { should be_executable }
+end
+
+describe cron do
+  it { should have_entry '0 6 * * * /usr/local/bin/copystorm' }
+end

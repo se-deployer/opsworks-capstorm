@@ -25,5 +25,16 @@ cookbook_file node[:capstorm][:copystorm][:session_file][:name] do
   path "#{node[:capstorm][:config_dir]}/session.copyStorm"
 end
 
-#TODO credentials?
-#TODO cron?
+template "/usr/local/bin/copystorm" do
+  source "copystorm.sh.erb"
+  mode "0755"
+  variables(
+      :capstorm => node[:capstorm]
+  )
+end
+
+cron "copystorm" do
+  command "/usr/local/bin/copystorm"
+  minute '0'
+  hour node[:capstorm][:copystorm][:cron][:hour]
+end
