@@ -14,6 +14,10 @@ describe file('/opt/capstorm/CopyStorm/CopyStorm.sh') do
   it { should be_executable }
 end
 
+describe file('/opt/capstorm/CopyStorm/lib/mysql-connector-java.jar') do
+  it { should be_symlink }
+end
+
 describe file('/etc/capstorm/session.copyStorm') do
   it { should be_file }
   its(:content) { should match <<EOF

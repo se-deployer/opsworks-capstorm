@@ -11,7 +11,9 @@ remote_file "#{Chef::Config[:file_cache_path]}/CopyStorm.zip" do
   action :create
 end
 
-execute "unzip #{Chef::Config[:file_cache_path]}/CopyStorm.zip -d #{node[:capstorm][:install_dir]}"
+execute "unzip #{Chef::Config[:file_cache_path]}/CopyStorm.zip -d #{node[:capstorm][:install_dir]}" do
+  not_if { ::File.exists?("#{node[:capstorm][:install_dir]}/CopyStorm") }
+end
 execute "chmod +x #{node[:capstorm][:install_dir]}/CopyStorm/CopyStorm.sh"
 
 link "#{node[:capstorm][:install_dir]}/CopyStorm/lib/mysql-connector-java.jar" do
