@@ -38,3 +38,6 @@ suites:
       capstorm:
         copystorm:
           package_url: https://s3.amazonaws.com/sportngin-ops-files/CopyStormMySQL_6.31.11.zip
+          session_file:
+            cookbook: opsworks-capstorm
+            name: example.copyStorm
