@@ -25,6 +25,17 @@ cookbook_file node[:capstorm][:copystorm][:session_file][:name] do
   path "#{node[:capstorm][:config_dir]}/session.copyStorm"
 end
 
+unless node[:capstorm][:copystorm][:license_file][:name].nil?
+  cookbook_file node[:capstorm][:copystorm][:license_file][:name] do
+    cookbook node[:capstorm][:copystorm][:license_file][:cookbook]
+    path "#{node[:capstorm][:install_dir]}/CopyStorm/license.txt"
+  end
+end
+
+file "/var/log/copystorm.log" do
+  action :create_if_missing
+end
+
 template "/usr/local/bin/copystorm" do
   source "copystorm.sh.erb"
   mode "0755"
@@ -33,8 +44,10 @@ template "/usr/local/bin/copystorm" do
   )
 end
 
-cron "copystorm" do
-  command "/usr/local/bin/copystorm"
-  minute '0'
-  hour node[:capstorm][:copystorm][:cron][:hour]
+unless node[:capstorm][:copystorm][:cron][:hour].nil?
+  cron "copystorm" do
+    command "/usr/local/bin/copystorm"
+    minute '0'
+    hour node[:capstorm][:copystorm][:cron][:hour]
+  end
 end
