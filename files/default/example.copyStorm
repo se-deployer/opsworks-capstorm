@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<CopyStorm targetDatabase="MySQL">
+  <Salesforce createSchema="true" instanceType="Production" useApacheClient="false"/>
+  <SalesforceAdvanced apacheLog="false" continueOnDMLError="false" createIndexes="true" describeBatchSize="100" describeCache="false" destBatchSize="200" destbuffers="10" forceUpdate="false" ignoreTimestamps="false" keepDeletedColumns="false" multiThread="true" nExtraScalDigits="2" purgeDays="0" queryBatchSize="2000" rebuildOnDMLError="false" reconnect="5" reconnectDelay="60" showVisualProgress="false" silent="false" strictDecimal="false" timeout="1000">
+    <ExcludeTables>
+      <table name=".*Feed"/>
+      <table name=".*_Share"/>
+      <table name="Attachment"/>
+      <table name="ContentVersion"/>
+      <table name="FeedComment"/>
+      <table name="Event"/>
+      <table name="Task"/>
+    </ExcludeTables>
+  </SalesforceAdvanced>
+  <SalesforceProxy/>
+  <Database dumpreplaceCR="false" type="Directory"/>
+</CopyStorm>
