@@ -16,13 +16,13 @@ provisioner:
   attributes:
     test_kitchen: true
 platforms:
-  - name: amazon-2014.10
+  - name: amazon-2015.09
     driver_plugin: ec2
     driver_config:
       ssh_key: <%= ENV['EC2_SSH_KEY_PATH'] %>
       username: ec2-user
       flavor_id: c3.large
-      image_id: ami-28cae740
+      image_id: ami-65116700
       region: us-east-1
       availability_zone: us-east-1b
       security_group_ids: ['ci-testing']

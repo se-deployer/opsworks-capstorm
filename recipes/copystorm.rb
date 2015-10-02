@@ -46,7 +46,7 @@ end
 
 unless node[:capstorm][:copystorm][:cron][:hour].nil?
   cron "copystorm" do
-    command "/usr/local/bin/copystorm"
+    command node[:capstorm][:cron_command]
     minute '0'
     hour node[:capstorm][:copystorm][:cron][:hour]
   end
