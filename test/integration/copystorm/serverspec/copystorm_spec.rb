@@ -5,10 +5,6 @@ describe package('mysql-connector-java') do
   it { should be_installed }
 end
 
-describe package('hatools') do
-  it { should be_installed }
-end
-
 describe file('/opt/capstorm/CopyStorm') do
   it { should be_directory }
 end
@@ -53,5 +49,5 @@ describe file('/usr/local/bin/copystorm') do
 end
 
 describe cron do
-  it { should have_entry '0 6 * * * /usr/bin/halockrun -nc /tmp/copystorm.lockrun /usr/local/bin/copystorm' }
+  it { should have_entry '0 6 * * * /usr/local/bin/copystorm' }
 end
