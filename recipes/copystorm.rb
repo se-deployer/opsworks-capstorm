@@ -1,5 +1,6 @@
 include_recipe "opsworks-capstorm::_common"
 package "mysql-connector-java"
+package "hatools"
 
 directory node[:capstorm][:install_dir] do
   action :create
@@ -46,7 +47,7 @@ end
 
 unless node[:capstorm][:copystorm][:cron][:hour].nil?
   cron "copystorm" do
-    command "/usr/local/bin/copystorm"
+    command "/usr/bin/halockrun -nc /tmp/copystorm.lockrun /usr/local/bin/copystorm"
     minute '0'
     hour node[:capstorm][:copystorm][:cron][:hour]
   end
