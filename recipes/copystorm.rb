@@ -1,11 +1,6 @@
 include_recipe "opsworks-capstorm::_common"
 package "mysql-connector-java"
 
-directory node[:capstorm][:install_dir] do
-  action :create
-  recursive true
-end
-
 remote_file "#{Chef::Config[:file_cache_path]}/CopyStorm.zip" do
   source node[:capstorm][:copystorm][:package_url]
   action :create
@@ -44,10 +39,13 @@ template "/usr/local/bin/copystorm" do
   )
 end
 
+include_recipe 'opsworks-capstorm::copystorm_medic' if node[:capstorm][:copystorm_medic][:enable]
+
 unless node[:capstorm][:copystorm][:cron][:hour].nil?
   cron "copystorm" do
-    command node[:capstorm][:cron_command]
+    command node[:capstorm][:copystorm][:cron_command]
     minute '0'
     hour node[:capstorm][:copystorm][:cron][:hour]
   end
 end
+
