@@ -37,7 +37,13 @@ suites:
     attributes:
       capstorm:
         copystorm:
-          package_url: https://s3.amazonaws.com/sportngin-ops-files/CopyStormMySQL_6.31.11.zip
+          package_url: https://s3.amazonaws.com/sportngin-ops-files/CopyStormMySQL_7.34.3.zip
           session_file:
             cookbook: opsworks-capstorm
             name: example.copyStorm
+        copystorm_medic:
+          enable: true
+          package_url: https://s3.amazonaws.com/sportngin-ops-files/CopyStormMedic_7.34.3.zip
+          session_file:
+            cookbook: opsworks-capstorm
+            name: example.copyStormMedic

@@ -8,6 +8,11 @@ export DIR="<%= @capstorm[:install_dir] %>/CopyStorm"
 export SESSION="<%= @capstorm[:config_dir] %>/session.copyStorm"
 export CLI_ARGS="<%= @capstorm[:copystorm][:cli_args] %>"
 export LOG="/var/log/copystorm.log"
+<% if @capstorm[:copystorm_medic][:enable] %>
+export MEDIC_DIR="<%= @capstorm[:install_dir] %>/CopyStormMedic"
+export MEDIC_SESSION="<%= @capstorm[:config_dir] %>/session.copyStormMedic"
+export MEDIC_CLI_ARGS="<%= @capstorm[:copystorm_medic][:cli_args] %>"
+<% end %>
 
 exec >  >(tee -a $LOG)
 exec 2> >(tee -a $LOG>&2)
@@ -32,3 +37,9 @@ alert() {
 <% end %>
 
 $DIR/CopyStorm.sh -run "$SESSION" "$CLI_ARGS"
+
+<% if @capstorm[:copystorm_medic][:enable] %>
+  <% @capstorm[:copystorm_medic][:tools].each do |tool| %>
+$MEDIC_DIR/CopyStormMedic.sh -tool "<%= tool %>" -run "$MEDIC_SESSION" "$MEDIC_CLI_ARGS"
+  <% end %>
+<% end %>

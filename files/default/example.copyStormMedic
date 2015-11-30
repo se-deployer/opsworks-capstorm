@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<CopyStormMedic targetDatabase="MySQL">
+
+  <!--
+  The "Salesforce" element has parameters for connecting to Salesforce.
+  -->
+  <Salesforce apacheClient="false" describeBatchSize="50" describeCache="false" instanceType="Production"
+              password="changeme" queryBatchSize="2000" timeout="5000" username="user@capstorm.com"/>
+
+  <!--
+  Each "Database" element has parameters for connecting to a CopyStorm database.
+  -->
+  <Database connect="//glenstorm;databaseName=gsmithfarmer" password="changeme" type="SQL Server" username="sa"/>
+  <Database connect="//anvard/gsmithfarmer34" password="changeme" type="MySQL" username="root"/>
+  <Database connect="glenstorm:1521:ORCL" password="gsmithfarmer" type="Oracle" username="gsmithfarmer"/>
+  <Database connect="/tmp/gsmithfarmer" password="changeme" type="H2" username="root"/>
+  <Database connect="//localhost/gsmithfarmer" password="changeme" type="PostgreSQL" username="root"/>
+
+  <!--
+  Each Tool in CSMedic has its own element specifying saved parameters. Most tools have the following common parameters:
+
+  + tables - a comma separated list of tables on which the tool will operation.
+  + sinceDate - look for records modified on or after this date. The value must be recognized by SFDC as a datetime value.
+  + beforeDate - look for records modified on or before this date.
+
+  Other tool parameters are illustrated in the examples below.
+  -->
+  <FixIsDeleted fixProblems="true" tables="Account,Task"/>
+  <RefreshFormulas beforeDate="YESTERDAY" sinceDate="LAST_MONTH" tables="Account"/>
+  <ScanTimestamps beforeDate="YESTERDAY" tables="Account,Contact,Opportunity"/>
+  <TableEditor action="DeleteTable" tables="Account"/>
+  <FindDirt beforeDate="YESTERDAY" tables="EmailTemplate,OpportunityHistory"/>
+
+  <!--
+  The "RefreshColumns" tool has a distinct format for tables.
+
+  + Each table name is followed by a comma separated list of column names (the columns to refresh).
+  + Table names are separated by ';' rather than a ','.
+  -->
+  <RefreshColumns sinceDate="LAST_WEEK" tables="Account(BillingCountry,BillingCity,BillingPostalCode,BillingStreet,BillingState);gsmithforce__EveryColumnType__c(gsmithforce__email__c,gsmithforce__number__c,gsmithforce__Relationship__c,gsmithforce__percent__c,OwnerId,LastModifiedDate,gsmithforce__textarea__c,gsmithforce__url__c,gsmithforce__GEO_Location__Latitude__s,SystemModstamp,gsmithforce__textarealong__c,gsmithforce__Date__c,gsmithforce__text__c,gsmithforce__Checkbox__c,LastReferencedDate,LastModifiedById,gsmithforce__phone__c,gsmithforce__textarearich__c,gsmithforce__Currency__c,Name,gsmithforce__picklist__c,LastViewedDate,gsmithforce__multipicklist__c,CreatedById,CreatedDate,IsDeleted,gsmithforce__Winter13Formula__c,gsmithforce__datetime__c,gsmithforce__EncryptedText__c,gsmithforce__GEO_Location__Longitude__s)"/>
+
+  <LogManager/>
+</CopyStormMedic>

@@ -8,3 +8,8 @@ directory node[:capstorm][:config_dir] do
   action :create
   recursive true
 end
+
+directory node[:capstorm][:install_dir] do
+  action :create
+  recursive true
+end

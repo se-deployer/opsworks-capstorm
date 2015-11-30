@@ -26,6 +26,13 @@ Configure attributes and include recipe in run-list of desired layer.
 - `node[:capstorm][:copystorm][:cli_args]` - Optional arguments to pass to CopyStorm CLI.
 - `node[:capstorm][:copystorm][:cron][:hour]` - Hour to execute CopyStorm via Cron. Set to nil to omit cron.
 
+- `node[:capstorm][:copystorm_medic][:enable]` - Enable CopyStorm Medic to run following CopyStorm.  Defaults to false.
+- `node[:capstorm][:copystorm_medic][:package_url]` - URL to fetch ZIP package from to install application.
+- `node[:capstorm][:copystorm_medic][:session_file][:cookbook]` - Name of cookbook to copy CopyStorm Medic session file from.
+- `node[:capstorm][:copystorm_medic][:session_file][:file]` - File name of CopyStorm Medic session in sourced cookbook.
+- `node[:capstorm][:copystorm_medic][:tools]` - Array of tool names to execute.  Defaults to `fixDeleted`.
+- `node[:capstorm][:copystorm_medic][:cli_args]` - Optional arguments to pass to CopyStorm CLI.
+
 # Recipes
 
 - `copystorm` - Install [CopyStorm](http://www.capstorm.com/copystorm).
