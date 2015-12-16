@@ -7,10 +7,8 @@
   ENV['EC2_SSH_KEY_PATH'] ||= File.expand_path('~/.ssh/id_rsa_kitchen_ec2')
 end %>
 driver:
-  aws_access_key_id: <%= ENV['AWS_ACCESS_KEY_ID'] %>
-  aws_secret_access_key: <%= ENV['AWS_SECRET_ACCESS_KEY'] %>
   aws_ssh_key_id: <%= ENV['AWS_KEYPAIR_NAME'] %>
-  require_chef_omnibus: "11.10.4"
+  require_chef_omnibus: "12"
 provisioner:
   name: chef_solo
   attributes:
@@ -18,10 +16,8 @@ provisioner:
 platforms:
   - name: amazon-2015.09
     driver_plugin: ec2
-    driver_config:
-      ssh_key: <%= ENV['EC2_SSH_KEY_PATH'] %>
-      username: ec2-user
-      flavor_id: c3.large
+    driver:
+      instance_type: c3.large
       image_id: ami-65116700
       region: us-east-1
       availability_zone: us-east-1b
@@ -30,6 +26,9 @@ platforms:
       tags:
         Name: <%= "#{ENV['CI'] ? 'travis-ci' : ENV['USER']}-opsworks-capstorm-kitchen" %>
         Env: public
+    transport:
+        ssh_key: <%= ENV['EC2_SSH_KEY_PATH'] %>
+        username: ec2-user
 suites:
   - name: copystorm
     run_list:

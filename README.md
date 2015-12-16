@@ -2,7 +2,7 @@
 
 Installs software from [CapStorm](http://www.capstorm.com/) into OpsWorks instances.
 Execution is scheduled daily via Cron and wrapped in a script that can alert Pager Duty on error.
-Currently supports CopyStorm using MySQL.
+Currently supports CopyStorm (with optional Medic) using MySQL.
 
 # Requirements
 
@@ -25,6 +25,7 @@ Configure attributes and include recipe in run-list of desired layer.
 - `node[:capstorm][:copystorm][:license_file][:name]` - File name of CopyStorm license file in sourced cookbook.
 - `node[:capstorm][:copystorm][:cli_args]` - Optional arguments to pass to CopyStorm CLI.
 - `node[:capstorm][:copystorm][:cron][:hour]` - Hour to execute CopyStorm via Cron. Set to nil to omit cron.
+- `node[:capstorm][:copystorm][:cron_command]` - Command to execute CopyStorm via Cron.
 
 - `node[:capstorm][:copystorm_medic][:enable]` - Enable CopyStorm Medic to run following CopyStorm.  Defaults to false.
 - `node[:capstorm][:copystorm_medic][:package_url]` - URL to fetch ZIP package from to install application.
@@ -32,6 +33,8 @@ Configure attributes and include recipe in run-list of desired layer.
 - `node[:capstorm][:copystorm_medic][:session_file][:file]` - File name of CopyStorm Medic session in sourced cookbook.
 - `node[:capstorm][:copystorm_medic][:tools]` - Array of tool names to execute.  Defaults to `fixDeleted`.
 - `node[:capstorm][:copystorm_medic][:cli_args]` - Optional arguments to pass to CopyStorm CLI.
+- `node[:capstorm][:copystorm_medic][:cron][:hour]` - Hour to execute CopyStorm Medic via Cron. Set to nil to omit cron.
+- `node[:capstorm][:copystorm_medic][:cron_command]` - Command to execute CopyStorm Medic via Cron.
 
 # Recipes
 

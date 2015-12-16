@@ -18,4 +18,5 @@ default[:capstorm][:copystorm_medic][:session_file][:cookbook] = nil
 default[:capstorm][:copystorm_medic][:session_file][:file] = nil
 default[:capstorm][:copystorm_medic][:tools] = %w[fixDeleted]
 default[:capstorm][:copystorm_medic][:cli_args] = nil
-
+default[:capstorm][:copystorm_medic][:cron_command] = "/usr/local/bin/copystorm_medic"
+default[:capstorm][:copystorm_medic][:cron][:hour] = '18'
