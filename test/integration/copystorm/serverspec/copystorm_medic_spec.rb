@@ -19,9 +19,12 @@ describe file('/etc/capstorm/session.copyStormMedic') do
 end
 
 
-describe file('/usr/local/bin/copystorm') do
+describe file('/usr/local/bin/copystorm_medic') do
   it { should be_file }
   it { should be_executable }
   its(:content) { should include 'CopyStormMedic' }
 end
 
+describe cron do
+  it { should have_entry '0 18 * * * /usr/local/bin/copystorm_medic' }
+end

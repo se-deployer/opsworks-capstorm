@@ -4,10 +4,10 @@ set -o errtrace  # trace ERR through 'time command' and other functions
 set -o nounset   ## set -u : exit the script if you try to use an uninitialised variable
 set -o errexit   ## set -e : exit the script if any statement returns a non-true return value
 
-export DIR="<%= @capstorm[:install_dir] %>/CopyStorm"
-export SESSION="<%= @capstorm[:config_dir] %>/session.copyStorm"
-export CLI_ARGS="<%= @capstorm[:copystorm][:cli_args] %>"
-export LOG="/var/log/copystorm.log"
+export DIR="<%= @capstorm[:install_dir] %>/CopyStormMedic"
+export SESSION="<%= @capstorm[:config_dir] %>/session.copyStormMedic"
+export CLI_ARGS="<%= @capstorm[:copystorm_medic][:cli_args] %>"
+export LOG="/var/log/copystorm_medic.log"
 
 exec >  >(tee -a $LOG)
 exec 2> >(tee -a $LOG>&2)
@@ -20,9 +20,9 @@ alert() {
   curl -s -H "Content-type: application/json" -X POST \
     -d "{
       \"service_key\": \"<%= @capstorm[:pager_duty_service_key] %>\",
-      \"incident_key\": \"$(hostname)_copystorm\",
+      \"incident_key\": \"$(hostname)_copystorm_medic\",
       \"event_type\": \"trigger\",
-      \"description\": \"CopyStorm has failed.\",
+      \"description\": \"CopyStorm Medic has failed.\",
       \"details\": {
         \"exit_status\":\"$exit_status\"
       }
@@ -31,4 +31,6 @@ alert() {
 }
 <% end %>
 
-$DIR/CopyStorm.sh -run "$SESSION" "$CLI_ARGS"
+<% @capstorm[:copystorm_medic][:tools].each do |tool| %>
+$DIR/CopyStormMedic.sh -tool "<%= tool %>" -run "$SESSION" "$CLI_ARGS"
+<% end %>
