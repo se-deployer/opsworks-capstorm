@@ -30,7 +30,7 @@ template "/usr/local/bin/copystorm_medic" do
 end
 
 unless node[:capstorm][:copystorm_medic][:cron][:hour].nil?
-  cron "copystorm" do
+  cron "copystorm_medic" do
     command node[:capstorm][:copystorm_medic][:cron_command]
     minute '0'
     hour node[:capstorm][:copystorm_medic][:cron][:hour]
